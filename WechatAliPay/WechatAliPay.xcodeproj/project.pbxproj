@@ -37,7 +37,7 @@
 		05351F911EA892DF00F19AFC /* CMHttpResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 05351E3A1EA892DF00F19AFC /* CMHttpResponseModel.m */; };
 		05351F921EA892DF00F19AFC /* CMHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 05351E3C1EA892DF00F19AFC /* CMHTTPSessionManager.m */; };
 		05351F931EA892DF00F19AFC /* CMHttpStateTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 05351E3E1EA892DF00F19AFC /* CMHttpStateTools.m */; };
-		05351F941EA892DF00F19AFC /* CMWechatPayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 05351E431EA892DF00F19AFC /* CMWechatPayManager.m */; };
+		05351F941EA892DF00F19AFC /* CMWechatAliPayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 05351E431EA892DF00F19AFC /* CMWechatAliPayManager.m */; };
 		05351F951EA892DF00F19AFC /* buttonbar_action.png in Resources */ = {isa = PBXBuildFile; fileRef = 05351E471EA892DF00F19AFC /* buttonbar_action.png */; };
 		05351F961EA892DF00F19AFC /* buttonbar_action@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05351E481EA892DF00F19AFC /* buttonbar_action@2x.png */; };
 		05351F971EA892DF00F19AFC /* buttonbar_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 05351E491EA892DF00F19AFC /* buttonbar_back.png */; };
@@ -188,10 +188,10 @@
 		053520281EA892E000F19AFC /* YYClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 05351F7B1EA892DF00F19AFC /* YYClassInfo.m */; };
 		0535202B1EA8936600F19AFC /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0535202A1EA8936600F19AFC /* libsqlite3.tbd */; };
 		0535202D1EA893D200F19AFC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0535202C1EA893D200F19AFC /* Info.plist */; };
-		053522701EA8B36800F19AFC /* FAPayKindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0535226F1EA8B36800F19AFC /* FAPayKindViewController.m */; };
-		053522731EA8B37E00F19AFC /* FAPayKindModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 053522721EA8B37E00F19AFC /* FAPayKindModel.m */; };
-		053522761EA8B3BC00F19AFC /* FAPayKindTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 053522751EA8B3BC00F19AFC /* FAPayKindTableCell.m */; };
-		053522791EA8B41A00F19AFC /* FAPayKindSelectedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 053522781EA8B41A00F19AFC /* FAPayKindSelectedView.m */; };
+		053522701EA8B36800F19AFC /* WAPayKindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0535226F1EA8B36800F19AFC /* WAPayKindViewController.m */; };
+		053522731EA8B37E00F19AFC /* WAPayKindModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 053522721EA8B37E00F19AFC /* WAPayKindModel.m */; };
+		053522761EA8B3BC00F19AFC /* WAPayKindTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 053522751EA8B3BC00F19AFC /* WAPayKindTableCell.m */; };
+		053522791EA8B41A00F19AFC /* WAPayKindSelectedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 053522781EA8B41A00F19AFC /* WAPayKindSelectedView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -275,8 +275,8 @@
 		05351E3E1EA892DF00F19AFC /* CMHttpStateTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMHttpStateTools.m; sourceTree = "<group>"; };
 		05351E3F1EA892DF00F19AFC /* CMRequestDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMRequestDelegate.h; sourceTree = "<group>"; };
 		05351E401EA892DF00F19AFC /* CMResponseDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMResponseDelegate.h; sourceTree = "<group>"; };
-		05351E421EA892DF00F19AFC /* CMWechatPayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMWechatPayManager.h; sourceTree = "<group>"; };
-		05351E431EA892DF00F19AFC /* CMWechatPayManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMWechatPayManager.m; sourceTree = "<group>"; };
+		05351E421EA892DF00F19AFC /* CMWechatAliPayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMWechatAliPayManager.h; sourceTree = "<group>"; };
+		05351E431EA892DF00F19AFC /* CMWechatAliPayManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMWechatAliPayManager.m; sourceTree = "<group>"; };
 		05351E441EA892DF00F19AFC /* CMWpaySearchResultDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMWpaySearchResultDelegate.h; sourceTree = "<group>"; };
 		05351E471EA892DF00F19AFC /* buttonbar_action.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonbar_action.png; sourceTree = "<group>"; };
 		05351E481EA892DF00F19AFC /* buttonbar_action@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "buttonbar_action@2x.png"; sourceTree = "<group>"; };
@@ -546,14 +546,14 @@
 		05351F7C1EA892DF00F19AFC /* YYModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYModel.h; sourceTree = "<group>"; };
 		0535202A1EA8936600F19AFC /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		0535202C1EA893D200F19AFC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0535226E1EA8B36800F19AFC /* FAPayKindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FAPayKindViewController.h; sourceTree = "<group>"; };
-		0535226F1EA8B36800F19AFC /* FAPayKindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FAPayKindViewController.m; sourceTree = "<group>"; };
-		053522711EA8B37E00F19AFC /* FAPayKindModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FAPayKindModel.h; sourceTree = "<group>"; };
-		053522721EA8B37E00F19AFC /* FAPayKindModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FAPayKindModel.m; sourceTree = "<group>"; };
-		053522741EA8B3BC00F19AFC /* FAPayKindTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FAPayKindTableCell.h; sourceTree = "<group>"; };
-		053522751EA8B3BC00F19AFC /* FAPayKindTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FAPayKindTableCell.m; sourceTree = "<group>"; };
-		053522771EA8B41A00F19AFC /* FAPayKindSelectedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FAPayKindSelectedView.h; sourceTree = "<group>"; };
-		053522781EA8B41A00F19AFC /* FAPayKindSelectedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FAPayKindSelectedView.m; sourceTree = "<group>"; };
+		0535226E1EA8B36800F19AFC /* WAPayKindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WAPayKindViewController.h; sourceTree = "<group>"; };
+		0535226F1EA8B36800F19AFC /* WAPayKindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WAPayKindViewController.m; sourceTree = "<group>"; };
+		053522711EA8B37E00F19AFC /* WAPayKindModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WAPayKindModel.h; sourceTree = "<group>"; };
+		053522721EA8B37E00F19AFC /* WAPayKindModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WAPayKindModel.m; sourceTree = "<group>"; };
+		053522741EA8B3BC00F19AFC /* WAPayKindTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WAPayKindTableCell.h; sourceTree = "<group>"; };
+		053522751EA8B3BC00F19AFC /* WAPayKindTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WAPayKindTableCell.m; sourceTree = "<group>"; };
+		053522771EA8B41A00F19AFC /* WAPayKindSelectedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WAPayKindSelectedView.h; sourceTree = "<group>"; };
+		053522781EA8B41A00F19AFC /* WAPayKindSelectedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WAPayKindSelectedView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -720,8 +720,8 @@
 			children = (
 				05351DF31EA892DF00F19AFC /* CMHomeViewController.h */,
 				05351DF41EA892DF00F19AFC /* CMHomeViewController.m */,
-				0535226E1EA8B36800F19AFC /* FAPayKindViewController.h */,
-				0535226F1EA8B36800F19AFC /* FAPayKindViewController.m */,
+				0535226E1EA8B36800F19AFC /* WAPayKindViewController.h */,
+				0535226F1EA8B36800F19AFC /* WAPayKindViewController.m */,
 				05351DF51EA892DF00F19AFC /* Helper */,
 				05351DF61EA892DF00F19AFC /* Models */,
 				05351DF71EA892DF00F19AFC /* Views */,
@@ -739,8 +739,8 @@
 		05351DF61EA892DF00F19AFC /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				053522711EA8B37E00F19AFC /* FAPayKindModel.h */,
-				053522721EA8B37E00F19AFC /* FAPayKindModel.m */,
+				053522711EA8B37E00F19AFC /* WAPayKindModel.h */,
+				053522721EA8B37E00F19AFC /* WAPayKindModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -748,10 +748,10 @@
 		05351DF71EA892DF00F19AFC /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				053522771EA8B41A00F19AFC /* FAPayKindSelectedView.h */,
-				053522781EA8B41A00F19AFC /* FAPayKindSelectedView.m */,
-				053522741EA8B3BC00F19AFC /* FAPayKindTableCell.h */,
-				053522751EA8B3BC00F19AFC /* FAPayKindTableCell.m */,
+				053522771EA8B41A00F19AFC /* WAPayKindSelectedView.h */,
+				053522781EA8B41A00F19AFC /* WAPayKindSelectedView.m */,
+				053522741EA8B3BC00F19AFC /* WAPayKindTableCell.h */,
+				053522751EA8B3BC00F19AFC /* WAPayKindTableCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1013,8 +1013,8 @@
 		05351E411EA892DF00F19AFC /* WechatPay */ = {
 			isa = PBXGroup;
 			children = (
-				05351E421EA892DF00F19AFC /* CMWechatPayManager.h */,
-				05351E431EA892DF00F19AFC /* CMWechatPayManager.m */,
+				05351E421EA892DF00F19AFC /* CMWechatAliPayManager.h */,
+				05351E431EA892DF00F19AFC /* CMWechatAliPayManager.m */,
 				05351E441EA892DF00F19AFC /* CMWpaySearchResultDelegate.h */,
 			);
 			path = WechatPay;
@@ -1862,7 +1862,7 @@
 				053520111EA892DF00F19AFC /* SDWebImageDownloaderOperation.m in Sources */,
 				05351FCD1EA892DF00F19AFC /* README.md in Sources */,
 				05351FCF1EA892DF00F19AFC /* AFImageDownloader.m in Sources */,
-				053522761EA8B3BC00F19AFC /* FAPayKindTableCell.m in Sources */,
+				053522761EA8B3BC00F19AFC /* WAPayKindTableCell.m in Sources */,
 				05351FB91EA892DF00F19AFC /* CMUDButton.m in Sources */,
 				0535201F1EA892DF00F19AFC /* TYImageStorage.m in Sources */,
 				05351FD61EA892DF00F19AFC /* UIRefreshControl+AFNetworking.m in Sources */,
@@ -1871,7 +1871,7 @@
 				05351FE71EA892DF00F19AFC /* IQUITextFieldView+Additions.m in Sources */,
 				053520071EA892DF00F19AFC /* UIScrollView+MJExtension.m in Sources */,
 				05351F8B1EA892DF00F19AFC /* UIImage+Color.m in Sources */,
-				05351F941EA892DF00F19AFC /* CMWechatPayManager.m in Sources */,
+				05351F941EA892DF00F19AFC /* CMWechatAliPayManager.m in Sources */,
 				05351F821EA892DF00F19AFC /* CMNewFetureViewController.m in Sources */,
 				05351FF11EA892DF00F19AFC /* IQToolbar.m in Sources */,
 				05351FC61EA892DF00F19AFC /* AFNetworkReachabilityManager.m in Sources */,
@@ -1896,7 +1896,7 @@
 				05351FE41EA892DF00F19AFC /* YLInfiniteScrollView.m in Sources */,
 				05351FED1EA892DF00F19AFC /* IQTextView.m in Sources */,
 				053520161EA892DF00F19AFC /* UIImage+MultiFormat.m in Sources */,
-				053522731EA8B37E00F19AFC /* FAPayKindModel.m in Sources */,
+				053522731EA8B37E00F19AFC /* WAPayKindModel.m in Sources */,
 				053520101EA892DF00F19AFC /* SDWebImageDownloader.m in Sources */,
 				053520121EA892DF00F19AFC /* SDWebImageManager.m in Sources */,
 				05351FDB1EA892DF00F19AFC /* CoreLabelModel.m in Sources */,
@@ -1931,9 +1931,9 @@
 				05351F8C1EA892DF00F19AFC /* UIImage+Size.m in Sources */,
 				05351F831EA892DF00F19AFC /* CMCustomTabBar.m in Sources */,
 				05351FD81EA892DF00F19AFC /* Base64Util.m in Sources */,
-				053522701EA8B36800F19AFC /* FAPayKindViewController.m in Sources */,
+				053522701EA8B36800F19AFC /* WAPayKindViewController.m in Sources */,
 				05351F871EA892DF00F19AFC /* AppDelegate.mm in Sources */,
-				053522791EA8B41A00F19AFC /* FAPayKindSelectedView.m in Sources */,
+				053522791EA8B41A00F19AFC /* WAPayKindSelectedView.m in Sources */,
 				0535201C1EA892DF00F19AFC /* TYAttributedLabel.m in Sources */,
 				05351FD11EA892DF00F19AFC /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				05351FEA1EA892DF00F19AFC /* IQUIWindow+Hierarchy.m in Sources */,

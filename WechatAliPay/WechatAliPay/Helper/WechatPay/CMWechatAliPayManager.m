@@ -6,25 +6,24 @@
 //  Copyright © 2016年 DaviD. All rights reserved.
 //
 
-#import "CMWechatPayManager.h"
+#import "CMWechatAliPayManager.h"
 #import "CMHttpRequestModel.h"
-//#import "CMUserTools.h"
-//#import "CMWechatUser.h"
-static CMWechatPayManager *_WpayInstance = nil;
-@interface CMWechatPayManager ()
+
+static CMWechatAliPayManager *_WpayInstance = nil;
+@interface CMWechatAliPayManager ()
 
 // 临时记录返回的参数，为支付成功后去商户查询订单做好准备
 @property(nonatomic,strong)CMHttpRequestModel *paramsModel;
 
 @end
 
-@implementation CMWechatPayManager
+@implementation CMWechatAliPayManager
 
 + (instancetype)sharedWpayManager
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _WpayInstance = [[CMWechatPayManager alloc] init];
+        _WpayInstance = [[CMWechatAliPayManager alloc] init];
     });
     
     return _WpayInstance;

@@ -6,9 +6,9 @@
 //  Copyright © 2017年 DaviD. All rights reserved.
 //
 
-#import "FAPayKindTableCell.h"
+#import "WAPayKindTableCell.h"
 
-@interface FAPayKindTableCell ()
+@interface WAPayKindTableCell ()
 
 @property(nonatomic,strong)UIImageView *payImage;
 
@@ -20,7 +20,7 @@
 
 @end
 
-@implementation FAPayKindTableCell
+@implementation WAPayKindTableCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -30,9 +30,9 @@
 +(instancetype)updateWithTableView:(UITableView *)tableView {
     
     static NSString *ID = @"kFAPayKindTableCelld";
-    FAPayKindTableCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    WAPayKindTableCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (!cell) {
-        cell = [[FAPayKindTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+        cell = [[WAPayKindTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
     }
     return cell;
 }
@@ -78,7 +78,7 @@
     }
     return self;
 }
--(void)setModel:(FAPayKindModel *)model {
+-(void)setModel:(WAPayKindModel *)model {
     _model =model;
 //    self.payImage.backgroundColor =[UIColor yellowColor];
     self.lable.text =model.payKindStr;

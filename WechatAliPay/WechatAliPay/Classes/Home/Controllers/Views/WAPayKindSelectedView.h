@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FAPayKindSelectedView : UIView<UITableViewDelegate,UITableViewDataSource>
+@interface WAPayKindSelectedView : UIView<UITableViewDelegate,UITableViewDataSource>
 
 // frame需要外界设置
 @property(nonatomic,strong)UITableView *tableView;

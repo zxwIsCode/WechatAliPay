@@ -8,13 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "WXApiObject.h"
-@class CMWechatPayManager;
+@class CMWechatAliPayManager;
 @class WXApi;
 @protocol CMWpaySearchResultDelegate <NSObject>
 
 @required
 // 微信支付完成后告诉客户端
--(void)Wpay:(CMWechatPayManager *)manager andPayResult:(int)code;
+-(void)Wpay:(CMWechatAliPayManager *)manager andPayResult:(int)code;
 
 @optional
 

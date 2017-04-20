@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface FAPayKindModel : NSObject
+@interface WAPayKindModel : NSObject
 
 @property(nonatomic,copy)NSString *payKindStr;
 

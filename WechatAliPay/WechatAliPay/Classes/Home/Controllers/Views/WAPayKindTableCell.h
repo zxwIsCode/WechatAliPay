@@ -7,16 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FAPayKindModel.h"
+#import "WAPayKindModel.h"
 
 
-@interface FAPayKindTableCell : UITableViewCell
+@interface WAPayKindTableCell : UITableViewCell
 
-typedef void(^PayKindTableCellBlock)(FAPayKindModel *payKindModel);
+typedef void(^PayKindTableCellBlock)(WAPayKindModel *payKindModel);
 
 +(instancetype)updateWithTableView:(UITableView *)tableView;
 
-@property(nonatomic,strong)FAPayKindModel *model;
+@property(nonatomic,strong)WAPayKindModel *model;
 
 @property(nonatomic,copy)PayKindTableCellBlock payKindBlock;
 

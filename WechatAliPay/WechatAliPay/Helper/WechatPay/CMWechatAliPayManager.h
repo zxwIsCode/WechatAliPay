@@ -12,7 +12,7 @@
 #import "WXApi.h"
 #import "WXApiObject.h"
 #import "CMWpaySearchResultDelegate.h"
-@interface CMWechatPayManager : AFHTTPSessionManager<WXApiDelegate>
+@interface CMWechatAliPayManager : AFHTTPSessionManager<WXApiDelegate>
 
 @property(nonatomic,weak)id<CMWpaySearchResultDelegate>  delegate;
 + (instancetype)sharedWpayManager;

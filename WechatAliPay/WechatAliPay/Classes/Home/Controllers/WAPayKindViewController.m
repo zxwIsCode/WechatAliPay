@@ -6,22 +6,22 @@
 //  Copyright © 2017年 DaviD. All rights reserved.
 //
 
-#import "FAPayKindViewController.h"
-#import "FAPayKindModel.h"
+#import "WAPayKindViewController.h"
+#import "WAPayKindModel.h"
 
-#import "FAPayKindTableCell.h"
+#import "WAPayKindTableCell.h"
 
-#import "FAPayKindSelectedView.h"
+#import "WAPayKindSelectedView.h"
 
 //#import "RSADataSigner.h"
 //#import <AlipaySDK/AlipaySDK.h>
 //#import "CMWechatPayManager.h"
 
-@interface FAPayKindViewController ()
+@interface WAPayKindViewController ()
 
 //@property(nonatomic,strong)UITableView *tableView;
 
-@property(nonatomic,strong)FAPayKindSelectedView *selectedTableView;
+@property(nonatomic,strong)WAPayKindSelectedView *selectedTableView;
 
 @property(nonatomic,strong)NSMutableArray *payArr;
 
@@ -34,7 +34,7 @@
 
 @end
 
-@implementation FAPayKindViewController
+@implementation WAPayKindViewController
 
 #pragma mark - Init
 
@@ -127,7 +127,7 @@
                 NSArray *payWayArr =(NSArray *)result.data;
                 if (payWayArr.count)  {
                     for (NSDictionary *payDic in payWayArr) {
-                        FAPayKindModel *payKindModel =[[FAPayKindModel alloc]init];
+                        WAPayKindModel *payKindModel =[[WAPayKindModel alloc]init];
                         payKindModel.payKindStr =payDic[@"payname"];
                         payKindModel.payid =payDic[@"payid"];
                         payKindModel.payKindIcon =payDic[@"pimg"];
@@ -416,9 +416,9 @@
     return _yesPayBtn;
 }
 
--(FAPayKindSelectedView *)selectedTableView {
+-(WAPayKindSelectedView *)selectedTableView {
     if (!_selectedTableView) {
-        _selectedTableView =[[FAPayKindSelectedView alloc]init];
+        _selectedTableView =[[WAPayKindSelectedView alloc]init];
     }
     return _selectedTableView;
 }

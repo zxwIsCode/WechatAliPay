@@ -6,8 +6,8 @@
 //  Copyright © 2017年 DaviD. All rights reserved.
 //
 
-#import "FAPayKindModel.h"
+#import "WAPayKindModel.h"
 
-@implementation FAPayKindModel
+@implementation WAPayKindModel
 
 @end

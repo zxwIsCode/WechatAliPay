@@ -6,11 +6,11 @@
 //  Copyright © 2017年 DaviD. All rights reserved.
 //
 
-#import "FAPayKindSelectedView.h"
-#import "FAPayKindModel.h"
-#import "FAPayKindTableCell.h"
+#import "WAPayKindSelectedView.h"
+#import "WAPayKindModel.h"
+#import "WAPayKindTableCell.h"
 
-@implementation FAPayKindSelectedView
+@implementation WAPayKindSelectedView
 
 +(instancetype)SelectedTableView {
     
@@ -31,7 +31,7 @@
 
 -(void)cancleAllSelected {
     NSMutableArray *payOriginalArr =self.payArr;
-    for (FAPayKindModel *model in payOriginalArr) {
+    for (WAPayKindModel *model in payOriginalArr) {
         model.isSelected =NO;
     }
     self.payArr =payOriginalArr;
@@ -43,10 +43,10 @@
     return self.payArr.count;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    FAPayKindTableCell *cell =[FAPayKindTableCell updateWithTableView:tableView];
+    WAPayKindTableCell *cell =[WAPayKindTableCell updateWithTableView:tableView];
     if (cell) {
         if (self.payArr.count) {
-            FAPayKindModel *model =self.payArr[indexPath.row];
+            WAPayKindModel *model =self.payArr[indexPath.row];
             if (indexPath.row ==_indexKind) { // 如果当前初始化的cell的下标与处于选择状态的一致，则界面必定处于选择状态
                 model.isSelected =YES;
             }else {
@@ -59,7 +59,7 @@
         
     }
     WS(ws);
-    cell.payKindBlock = ^(FAPayKindModel *model) {
+    cell.payKindBlock = ^(WAPayKindModel *model) {
         // 所有的取消选择状态
         [ws cancleAllSelected];
         

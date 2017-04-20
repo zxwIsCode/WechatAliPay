@@ -9,7 +9,7 @@
 #import "CMBaseViewController.h"
 
 
-@interface FAPayKindViewController : CMBaseViewController
+@interface WAPayKindViewController : CMBaseViewController
 
 // 所有的数据源
 @property(nonatomic,strong)NSMutableArray *allDataSource;
