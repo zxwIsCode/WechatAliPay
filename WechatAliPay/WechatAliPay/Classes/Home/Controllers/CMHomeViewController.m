@@ -12,6 +12,11 @@
 
 @property(nonatomic,strong)NSArray *testArray;
 
+
+@property(nonatomic,strong)UIButton *wechatBtn;
+
+@property(nonatomic,strong)UIButton *aliPayBtn;
+
 @end
 
 @implementation CMHomeViewController
@@ -24,9 +29,24 @@
     self.testArray =@[@"QQ",@"爱心",@"爱心人物"];
     [self testNet];
     
+    [self.view addSubview:self.wechatBtn];
+    [self.view addSubview:self.aliPayBtn];
+    
     
 
     // Do any additional setup after loading the view.
+}
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    self.wechatBtn.bounds =CGRectMake(0, 0, 200, 40);
+    self.wechatBtn.center =CGPointMake(SCREEN_WIDTH *0.5, 200 *kAppScale);
+    
+    self.aliPayBtn.bounds =CGRectMake(0, 0, 200, 40);
+    self.aliPayBtn.center =CGPointMake(SCREEN_WIDTH *0.5, 400 *kAppScale);
+    
+    self.wechatBtn.backgroundColor =[UIColor redColor];
+    self.aliPayBtn.backgroundColor =[UIColor brownColor];
 }
 #pragma mark - Test
 
@@ -146,19 +166,19 @@
     return CMNavTypeAll;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(UIButton *)wechatBtn {
+    if (!_wechatBtn) {
+        _wechatBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+        [_wechatBtn setTitle:@"微信支付" forState:UIControlStateNormal];
+        [_wechatBtn addTarget:self action:@selector(payBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _wechatBtn;
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(UIButton *)aliPayBtn {
+    if (!_aliPayBtn) {
+        _aliPayBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+        [_aliPayBtn setTitle:@"支付宝支付" forState:UIControlStateNormal];
+    }
+    return _aliPayBtn;
 }
-*/
-
 @end

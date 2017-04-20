@@ -13,3 +13,7 @@ NSString *const kTestQQGetNickNameURL = @"/GetQqNikeName";
 NSString *const kTestDonationGetListURL = @"/GetDonationList";
 NSString *const kTestDonationGetPersonURL = @"/DonationPerson";
 
+
+
+NSString *const kCart_PayGetPayr = @"/Pay/GetPay"; // 支付方式的获取
+NSString *const kCart_OrderPlaceOrder = @"/Order/PlaceOrder"; // 商品的立即购买和购物车结算
