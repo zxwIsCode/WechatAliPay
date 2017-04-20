@@ -1,0 +1,51 @@
+//
+//  ComeMoneyPrefix.pch
+//  ComeMoneyHere
+//
+//  Created by 李保东 on 16/11/15.
+//  Copyright © 2016年 李保东. All rights reserved.
+//
+
+#ifndef ComeMoneyPrefix_pch
+#define ComeMoneyPrefix_pch
+
+// 自定义Log
+#ifdef DEBUG
+
+#define DDLog(...) NSLog(@"%s %d \n %@\n\n",__func__,__LINE__,[NSString stringWithFormat:__VA_ARGS__])
+
+#else
+#define DDLog(...)
+
+#endif
+
+///默认蓝
+#define DEFAULT_BLUE_COLOR [UIColor colorWithRed:((float)(((0x19a1fe) & 0xFF0000) >> 16))/255.0 green:((float)(((0x19a1fe) & 0xFF00) >> 8))/255.0 blue:((float)((0x19a1fe) & 0xFF))/255.0 alpha:1.0]
+
+//------------------------以下为引用的库的头文件------------------------
+
+#ifdef __OBJC__
+
+#import "CMHHeader.h"
+#import "CMHDemoDefine.h"
+
+#import "UILabel+Font.h"
+#import "UITextField+Font.h"
+#import "CMCustomViewFactory.h"
+#import "CMHTTPSessionManager.h"
+#import "CMHttpRequestModel.h"
+#import "CMHttpResponseModel.h"
+
+#import "DisplayHelper.h"
+#import "CMHttpStateTools.h"
+#import "CMUserDefaults.h"
+
+
+
+
+
+
+
+#endif
+
+#endif /* ComeMoneyPrefix_pch */
