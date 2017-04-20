@@ -1,0 +1,2 @@
+# WechatAliPay
+这是一个对于微信和支付宝支付方面类的封装的Demo
