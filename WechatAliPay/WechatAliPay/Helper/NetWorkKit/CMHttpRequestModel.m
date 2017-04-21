@@ -17,8 +17,8 @@
 -(instancetype)init {
     if (self =[super init]) {
         self.type =CMHttpType_POST;
-#warning 服务器iP地址
-        self.localHost =kTestHttpHost;
+#warning 记得更改服务器iP地址为您的
+        self.localHost =kHttpHost;
     }
     return self;
 }

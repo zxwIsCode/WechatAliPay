@@ -75,36 +75,13 @@
     [self.view addSubview:rightLable];
     [self.view addSubview:lineView];
     
-//    self.selectedTableView.backgroundColor =[UIColor yellowColor];
-    
     [self.view addSubview:self.selectedTableView];
     [self.view addSubview:self.yesPayBtn];
     
-    
-   
-    // Do any additional setup after loading the view.
 }
 #pragma mark - Private Methods
 
 -(void)initAllPayKindDatas {
-    // 假数据处理
-//    NSArray *kindStrArr =@[@"银联支付",@"支付宝支付",@"微信支付"];
-//    NSArray * iconArr =@[@"icon_zhifuyl",@"icon_zhifuzhi",@"icon_zhifuwei"];
-//    for (int index =0; index <3; index ++) {
-//        FAPayKindModel *payModel =[[FAPayKindModel alloc]init];
-//        payModel.payKindIcon =[iconArr objectAtIndex:index];
-//        payModel.payKindStr =kindStrArr[index];
-//        if (index ==0) {
-//            payModel.isSelected =YES;
-//        }else {
-//            payModel.isSelected =NO;
-//  
-//        }
-//        [self.payArr addObject:payModel];
-//    }
-//    // 传值
-//    self.selectedTableView.payArr =self.payArr;
-    
     
     CMHttpRequestModel *paramsModel =[[CMHttpRequestModel alloc]init];
     paramsModel.appendUrl =kCart_PayGetPayr;
@@ -117,11 +94,11 @@
         if (result) {
             if (result.state == CMReponseCodeState_Success) {// 成功,做自己的逻辑
                 DDLog(@"%@",result.data);
-//                if (result.alertMsg) {
-//                    [DisplayHelper displaySuccessAlert:result.alertMsg];
-//                }else {
-//                    [DisplayHelper displaySuccessAlert:@"支付方式获得成功哦！"];
-//                }
+                if (result.alertMsg) {
+                    [DisplayHelper displaySuccessAlert:result.alertMsg];
+                }else {
+                    [DisplayHelper displaySuccessAlert:@"支付方式获得成功哦！"];
+                }
                 NSArray *payWayArr =(NSArray *)result.data;
                 if (payWayArr.count)  {
                     for (NSDictionary *payDic in payWayArr) {
@@ -152,7 +129,6 @@
         }
         [[DisplayHelper shareDisplayHelper]hideLoading:ws.view];
 
-  
     };
     [[CMHTTPSessionManager sharedHttpSessionManager] sendHttpRequestParam:paramsModel];
     
@@ -164,73 +140,26 @@
 -(void)yesPayBtnClick:(UIButton *)button {
     
     CMHttpRequestModel *paramsModel =[[CMHttpRequestModel alloc]init];
-    // 1. 传递参数的准备
-    if (self.selectedTableView.payArr.count >self.selectedTableView.indexKind) {
-        WAPayKindModel *model = self.selectedTableView.payArr[self.selectedTableView.indexKind];
-        
-        DDLog(@"您点击了%@平台的确认支付",model.payKindStr);
-        [paramsModel.paramDic setValue:model.payid forKey:@"payid"];
-    }
+    paramsModel.localHost =kTestHttpHost;
+    paramsModel.appendUrl =kPay_topay;
+    // 参数设置
 
+    [paramsModel.paramDic setValue:@"e1370e6a9995a7010ded1596308acfc6" forKey:@"token"];
+    [paramsModel.paramDic setValue:@"Z20170421114853LK8pc" forKey:@"orderid"];
     
-    // 2.订单处理的参数包装：
-    paramsModel.appendUrl =kCart_OrderPlaceOrder;
-    // 用户收货地址id
-    [paramsModel.paramDic setValue:@(4) forKey:@"addid"];
-
-    [paramsModel.paramDic setValue:@(1) forKey:@"userid"];
-    
-    // 是否使用积分（ 1是 2不是）
-    [paramsModel.paramDic setValue:@(2) forKey:@"isuseintl"];
-        
-    NSMutableDictionary *orderDic =[NSMutableDictionary dictionary];
-    [orderDic setValue:@(3) forKey:@"goodsid"];
-    [orderDic setValue:@(4) forKey:@"bid"];
-    [orderDic setValue:@"测试" forKey:@"msg"];
-    [orderDic setValue:@(1) forKey:@"way"];
-    
-    [orderDic setValue:@(0) forKey:@"jf"];
-    [orderDic setValue:@(8) forKey:@"spid"];
-    
-    [orderDic setValue:@(1) forKey:@"gnum"];
-    
-    NSMutableDictionary *allSingleDic =[NSMutableDictionary dictionary];
-    
-    [allSingleDic setValue:orderDic forKey:@"order"];
-    NSString *jsonStr =[NSString dictionaryToJsonString:allSingleDic];
-    
-    [paramsModel.paramDic setValue:jsonStr forKey:@"single"];
     
     // 3.发送的网络请求
     
     if (self.selectedTableView.indexKind==0) {// 支付宝支付
-        [[CMWechatAliPayManager sharedWpayManager] sendWeChatAliPayRequestParam:paramsModel];
-    }else if (self.selectedTableView.indexKind==1) {// 微信支付
-        // 充值直接调微信充值
-        CMHttpRequestModel *model =[[CMHttpRequestModel alloc]init];
-        model.localHost = @"http://php.adwtp.com/index.php/";
-        model.appendUrl = kSendTask_GetWechatPayParams;
-        
-        [model.paramDic setValue:@(1) forKey:@"userid"];
-        [model.paramDic setValue:@(50) forKey:@"beanum"];
+        [paramsModel.paramDic setValue:@(3) forKey:@"paytype"];
 
-        
-        
-        model.callback = ^(CMHttpResponseModel * result, NSError *error) {
-            if (result.state ==CMReponseCodeState_Success) {
-                
-            }else {
-                [CMHttpStateTools showHtttpStateView:result.state];
-                
-            }
-            
-        };
-        
-        [[CMWechatAliPayManager sharedWpayManager] sendWeChatAliPayRequestParam:model];
+    }else if (self.selectedTableView.indexKind==1) {// 微信支付
+        [paramsModel.paramDic setValue:@(4) forKey:@"paytype"];
+
     }else {// 银联支付
         
     }
-   
+    [[CMWechatAliPayManager sharedWpayManager] sendWeChatAliPayRequestParam:paramsModel];
    
 }
 
@@ -266,52 +195,6 @@
     
    
 }
-
--(void)requestAliPayMoney:(CMHttpRequestModel *)paramsModel {
-    paramsModel.callback =^(CMHttpResponseModel *result, NSError *error) {
-        
-        if (result) {
-            if (result.state == CMReponseCodeState_Success) {// 成功,做自己的逻辑
-                DDLog(@"%@",result.data);
-                
-                if ([result.data isKindOfClass:[NSString class]]) {
-                    // NOTE: 调用支付结果开始支付
-                    //应用注册scheme,在AliSDKDemo-Info.plist定义URL types
-                    NSString *appScheme = @"FarmAA";
-                    
-                    
-//                    [[AlipaySDK defaultService] payOrder:result.data fromScheme:appScheme callback:^(NSDictionary *resultDic) {
-//                        NSLog(@"reslut = %@",resultDic);
-//                    }];
-                }
-//                else { // 微信和银联支付
-//                    if (result.alertMsg) {
-//                        [DisplayHelper displaySuccessAlert:result.alertMsg];
-//                    }else {
-//                        [DisplayHelper displaySuccessAlert:@"商品结算成功哦！"];
-//                    }
-//                }
-                
-                
-            }else {// 失败,弹框提示
-                
-                DDLog(@"%@",result.error);
-                if (result.alertMsg) {
-                    [DisplayHelper displayWarningAlert:result.alertMsg];
-                    
-                }else {
-                    [DisplayHelper displayWarningAlert:@"请求成功,但没有数据哦!"];
-                }
-            }
-        }else {
-            
-            [DisplayHelper displayWarningAlert:@"网络异常，请稍后再试!"];
-        }
-        
-    };
-    [[CMHTTPSessionManager sharedHttpSessionManager] sendHttpRequestParam:paramsModel];
-}
-
 
 #pragma mark - Setter & Getter
 

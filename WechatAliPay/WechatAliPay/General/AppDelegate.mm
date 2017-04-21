@@ -10,7 +10,6 @@
 #import "CMMainTabBarViewController.h"
 #import "CMNewFetureViewController.h"
 
-#warning 记住导入分享的第三方头库
 //#import <ShareSDK/ShareSDK.h>
 //#import <ShareSDKConnector/ShareSDKConnector.h>
 //
@@ -30,11 +29,7 @@
 
 #define IsFirstLaunch @"CFBundleVersion"
 
-
-//#warning 记住遵循微信支付的第三方代理
 @interface AppDelegate ()<WXApiDelegate>
-//@interface AppDelegate ()
-
 
 
 @end
@@ -51,10 +46,11 @@
     self.window =[[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [self initRootViewController];
     [self.window makeKeyAndVisible];
-#warning 记得调用初始化分享或支付SDK的代码
+
 //    // 初始化ShareSDK
 //    [self initSharedKey];
-//        
+//
+
     // 初始化微信支付
     [self initWpay];
     
@@ -79,7 +75,6 @@
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
             NSLog(@"result = %@",resultDic);
             NSString *resultStatus = resultDic[@"resultStatus"];
-            NSString *errStr = resultDic[@"memo"];
             switch (resultStatus.integerValue) {
                 case 9000:// 成功
                     break;
@@ -138,7 +133,7 @@
             NSLog(@"授权结果 authCode = %@", authCode?:@"");
         }];
     }
-    return YES;
+    return [WXApi handleOpenURL:url delegate:self];
 }
 
 #pragma mark - Private Methods
@@ -163,8 +158,6 @@
         self.window.rootViewController =[[CMMainTabBarViewController alloc]init];
     }
 }
-
-#warning 记得初始化分享或支付SDK
 
 //- (void)initSharedKey
 //{
@@ -233,6 +226,7 @@
 #pragma mark - 初始化微信支付
 - (void)initWpay
 {
+    #warning 记得更改微信Appid为您的
     [WXApi registerApp:@"wx685a5f98e4497044" withDescription:@"com.zzdlwx.com"];
 }
 

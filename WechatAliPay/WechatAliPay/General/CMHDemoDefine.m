@@ -19,3 +19,6 @@ NSString *const kCart_PayGetPayr = @"/Pay/GetPay"; // 支付方式的获取
 NSString *const kCart_OrderPlaceOrder = @"/Order/PlaceOrder"; // 商品的立即购买和购物车结算
 
 NSString *const kSendTask_GetWechatPayParams = @"WxPay/RechargeBeans";// 获得微信支付参数
+
+/*************支付有关的接口**************/
+NSString *const kPay_topay = @"/Bill/topay"; //支付下订单的接口

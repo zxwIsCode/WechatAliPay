@@ -9,7 +9,9 @@
 
 /*************Test测试HTTP**************/
 
-#define kTestHttpHost @"http://www.nongmut.com/index.php"
+#define kHttpHost @"http://www.nongmut.com/index.php"
+#define kTestHttpHost @"http://192.168.3.199/payback/index.php/Mobile"
+
 
 UIKIT_EXTERN NSString *const kTestQQGetNickNameURL;  //根据QQ号查询昵称
 UIKIT_EXTERN NSString *const kTestDonationGetListURL;  //查询爱心捐款列表
@@ -20,8 +22,6 @@ UIKIT_EXTERN NSString *const kTestDonationGetPersonURL;  //查询爱心捐款人
 
 UIKIT_EXTERN NSString *const kCart_PayGetPayr; // 支付方式的获取
 
-UIKIT_EXTERN NSString *const kCart_OrderPlaceOrder; // 商品的立即购买和购物车结算
 
-UIKIT_EXTERN NSString *const kSendTask_GetWechatPayParams;// 获得微信支付参数
-
-
+/*************支付有关的接口**************/
+UIKIT_EXTERN NSString *const kPay_topay; //支付下订单的接口

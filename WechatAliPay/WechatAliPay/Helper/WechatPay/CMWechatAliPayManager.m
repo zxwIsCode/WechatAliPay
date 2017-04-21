@@ -51,15 +51,16 @@ static CMWechatAliPayManager *_WpayInstance = nil;
                             id  _Nonnull responseObject) {
                       // 0.解析返回的参数
                       NSDictionary *response =(NSDictionary *)responseObject;
-                      
-                      if ([[response allKeys]containsObject:@"code"] && [[response allKeys]containsObject:@"info"]) {
+                      #warning 根据下订单返回的具体参数处理（替换成您与后台商量的情景）
+                      if ([[response allKeys]containsObject:@"code"] && [[response allKeys]containsObject:@"body"]) {
                           NSNumber *code =response[@"code"];
-                          id infoId =response[@"info"];
+                          id infoId =response[@"body"];
                           if ([infoId isKindOfClass:[NSString class]]) {// 支付宝支付
                               NSString *infoStr =(NSString *)infoId;
+#warning 支付宝支付应用支付过程中返回应用唯一标示不要忘记改了，还有info中的urlScheme不要忘了加
                               NSString *appScheme = @"WAPay";
                               
-                              
+                              // 调用支付宝的支付接口
                               [[AlipaySDK defaultService] payOrder:infoStr fromScheme:appScheme callback:^(NSDictionary *resultDic) {
                                   NSLog(@"reslut = %@",resultDic);
                                   NSString *resultStatus = resultDic[@"resultStatus"];
@@ -72,7 +73,7 @@ static CMWechatAliPayManager *_WpayInstance = nil;
                           }else if([infoId isKindOfClass:[NSDictionary class]]){ // 微信支付
                               NSDictionary *infoDic =(NSDictionary *)infoId;
 
-                              if ([code intValue] ==200 && infoDic) {
+                              if ([code longValue] ==1 && infoDic) {
                                   // 服务器返回正确的业务逻辑处理
                                   // 1.判断自己的服务器的产生的订单参数返回是否正确
                                   PayReq *payReq =[ws isWpayParamsIsCorrect:infoDic];
@@ -93,9 +94,6 @@ static CMWechatAliPayManager *_WpayInstance = nil;
                       }
                       [DisplayHelper displayWarningAlert:@"请求微信支付订单服务器返回有误!"];
                       
-                      
-                     
-                      
                   }
                   failure:^(NSURLSessionDataTask * _Nonnull task,
                             NSError * _Nonnull error) {
@@ -108,16 +106,14 @@ static CMWechatAliPayManager *_WpayInstance = nil;
     
     if ([params allKeys].count >=6) {
         PayReq *req =[[PayReq alloc]init];
-#warning 微信支付的订单参数，不要忘记传了
-
-//        CMWechatUser *wUser =[CMUserTools Wechat];
-//        req.openID =wUser.uid;
-//        req.partnerId =params[@"partnerid"];
-//        req.prepayId =params[@"prepayid"];
-//        req.nonceStr =params[@"noncestr"];
-//        req.timeStamp =[params[@"timestamp"] intValue];
-//        req.package =params[@"package"];
-//        req.sign =params[@"sign"];
+#warning 微信支付的订单参数（AppId等），不要忘记更改了
+        req.openID =@"wxe9beac44b65d4815";
+        req.partnerId =params[@"partnerid"];
+        req.prepayId =params[@"prepayid"];
+        req.nonceStr =params[@"noncestr"];
+        req.timeStamp =[params[@"timestamp"] intValue];
+        req.package =params[@"package"];
+        req.sign =params[@"sign"];
         return req;
     }
     return nil;
