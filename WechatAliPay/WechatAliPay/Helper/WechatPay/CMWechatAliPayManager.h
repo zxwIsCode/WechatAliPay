@@ -12,12 +12,14 @@
 #import "WXApi.h"
 #import "WXApiObject.h"
 #import "CMWpaySearchResultDelegate.h"
+
+
 @interface CMWechatAliPayManager : AFHTTPSessionManager<WXApiDelegate>
 
 @property(nonatomic,weak)id<CMWpaySearchResultDelegate>  delegate;
 + (instancetype)sharedWpayManager;
 
 // 请求微信订单参数的Http
--(void)sendWeChatRequestParam:(CMHttpRequestModel *)model;
+-(void)sendWeChatAliPayRequestParam:(CMHttpRequestModel *)model;
 
 @end

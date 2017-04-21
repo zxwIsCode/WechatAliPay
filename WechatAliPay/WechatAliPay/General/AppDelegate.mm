@@ -17,10 +17,13 @@
 ////腾讯开放平台（对应QQ和QQ空间）SDK头文件
 //#import <TencentOpenAPI/TencentOAuth.h>
 //#import <TencentOpenAPI/QQApiInterface.h>
-//
-////微信SDK头文件
-//#import "WXApi.h"
-//
+
+
+// 微信SDK头文件
+#import "WXApi.h"
+// 支付宝SDK
+#import  <AlipaySDK/AlipaySDK.h>
+
 ////新浪微博SDK头文件
 //#import "WeiboSDK.h"
 
@@ -28,9 +31,9 @@
 #define IsFirstLaunch @"CFBundleVersion"
 
 
-#warning 记住遵循微信支付的第三方代理
-//@interface AppDelegate ()<WXApiDelegate>
-@interface AppDelegate ()
+//#warning 记住遵循微信支付的第三方代理
+@interface AppDelegate ()<WXApiDelegate>
+//@interface AppDelegate ()
 
 
 
@@ -52,12 +55,92 @@
 //    // 初始化ShareSDK
 //    [self initSharedKey];
 //        
-//    // 初始化微信支付
-//    [self initWpay];
+    // 初始化微信支付
+    [self initWpay];
     
 
     return YES;
 }
+
+#pragma mark -
+- (BOOL)application:(UIApplication *)application
+      handleOpenURL:(NSURL *)url
+{
+    return [WXApi handleOpenURL:url delegate:self];
+}
+
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    if ([url.host isEqualToString:@"safepay"]) {
+        // 支付跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+            NSLog(@"result = %@",resultDic);
+            NSString *resultStatus = resultDic[@"resultStatus"];
+            NSString *errStr = resultDic[@"memo"];
+            switch (resultStatus.integerValue) {
+                case 9000:// 成功
+                    break;
+                case 6001:// 取消
+                    break;
+                default:
+                    break;
+            }
+        }];
+        
+        // 授权跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processAuth_V2Result:url standbyCallback:^(NSDictionary *resultDic) {
+            NSLog(@"result = %@",resultDic);
+            // 解析 auth code
+            NSString *result = resultDic[@"result"];
+            NSString *authCode = nil;
+            if (result.length>0) {
+                NSArray *resultArr = [result componentsSeparatedByString:@"&"];
+                for (NSString *subResult in resultArr) {
+                    if (subResult.length > 10 && [subResult hasPrefix:@"auth_code="]) {
+                        authCode = [subResult substringFromIndex:10];
+                        break;
+                    }
+                }
+            }
+            NSLog(@"授权结果 authCode = %@", authCode?:@"");
+        }];
+    }
+    return [WXApi handleOpenURL:url delegate:self];
+}
+
+// NOTE: 9.0以后使用新API接口
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options
+{
+    if ([url.host isEqualToString:@"safepay"]) {
+        // 支付跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+            NSLog(@"result = %@",resultDic);
+        }];
+        
+        // 授权跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processAuth_V2Result:url standbyCallback:^(NSDictionary *resultDic) {
+            NSLog(@"result = %@",resultDic);
+            // 解析 auth code
+            NSString *result = resultDic[@"result"];
+            NSString *authCode = nil;
+            if (result.length>0) {
+                NSArray *resultArr = [result componentsSeparatedByString:@"&"];
+                for (NSString *subResult in resultArr) {
+                    if (subResult.length > 10 && [subResult hasPrefix:@"auth_code="]) {
+                        authCode = [subResult substringFromIndex:10];
+                        break;
+                    }
+                }
+            }
+            NSLog(@"授权结果 authCode = %@", authCode?:@"");
+        }];
+    }
+    return YES;
+}
+
 #pragma mark - Private Methods
 - (void)initRootViewController
 {
@@ -143,26 +226,15 @@
 //
 //     }];
 //}
-//- (BOOL)application:(UIApplication *)application
-//      handleOpenURL:(NSURL *)url
-//{
-//    return [WXApi handleOpenURL:url delegate:self];
-//}
-//
-//
-//-(BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url sourceApplication:(nullable NSString *)sourceApplication annotation:(nonnull id)annotation {
-//    
-//    return [WXApi handleOpenURL:url delegate:self];
-//    
-//}
-//
-//
-//
-//#pragma mark - 初始化微信支付
-//- (void)initWpay
-//{
-//    [WXApi registerApp:@"wxe9beac44b65d4815" withDescription:@"com.zzdlwx.com"];
-//}
+
+
+
+
+#pragma mark - 初始化微信支付
+- (void)initWpay
+{
+    [WXApi registerApp:@"wx685a5f98e4497044" withDescription:@"com.zzdlwx.com"];
+}
 
 
 

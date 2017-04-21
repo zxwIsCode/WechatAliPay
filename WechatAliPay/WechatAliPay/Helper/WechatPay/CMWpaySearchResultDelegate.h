@@ -7,14 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WXApiObject.h"
-@class CMWechatAliPayManager;
+
+typedef NS_ENUM(NSInteger, WAPayKind) {
+    WAPayKindWechat =0,      //微信支付
+    WAPayKindAliPay =1        //支付宝支付
+};
+
 @class WXApi;
+@class CMWechatAliPayManager;
 @protocol CMWpaySearchResultDelegate <NSObject>
 
 @required
 // 微信支付完成后告诉客户端
--(void)Wpay:(CMWechatAliPayManager *)manager andPayResult:(int)code;
+-(void)Wpay:(CMWechatAliPayManager *)manager andPayKind:(WAPayKind)payKind andPayResult:(int)code;
 
 @optional
 

@@ -18,7 +18,7 @@
     if (self =[super init]) {
         self.type =CMHttpType_POST;
 #warning 服务器iP地址
-//        self.localHost =kHttpHost;
+        self.localHost =kTestHttpHost;
     }
     return self;
 }

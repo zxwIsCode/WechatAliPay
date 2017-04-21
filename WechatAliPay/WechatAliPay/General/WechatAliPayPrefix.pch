@@ -36,6 +36,7 @@
 #import "CMHttpRequestModel.h"
 #import "CMHttpResponseModel.h"
 #import "UIImageView+WebCache.h"
+#import "NSString+FAJson.h"
 
 #import "DisplayHelper.h"
 #import "CMHttpStateTools.h"

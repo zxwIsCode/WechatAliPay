@@ -9,6 +9,9 @@
 #import "CMWechatAliPayManager.h"
 #import "CMHttpRequestModel.h"
 
+#import "RSADataSigner.h"
+#import <AlipaySDK/AlipaySDK.h>
+
 static CMWechatAliPayManager *_WpayInstance = nil;
 @interface CMWechatAliPayManager ()
 
@@ -34,8 +37,8 @@ static CMWechatAliPayManager *_WpayInstance = nil;
     }
     return self;
 }
-// 请求微信订单参数的Http
--(void)sendWeChatRequestParam:(CMHttpRequestModel *)model {
+// 请求微信或则支付宝订单参数的Http
+-(void)sendWeChatAliPayRequestParam:(CMHttpRequestModel *)model {
     NSURLSessionDataTask *task = nil;
     WS(ws);
     NSString *urlStr =[NSString stringWithFormat:@"%@%@",model.localHost,model.appendUrl];
@@ -48,25 +51,45 @@ static CMWechatAliPayManager *_WpayInstance = nil;
                             id  _Nonnull responseObject) {
                       // 0.解析返回的参数
                       NSDictionary *response =(NSDictionary *)responseObject;
+                      
                       if ([[response allKeys]containsObject:@"code"] && [[response allKeys]containsObject:@"info"]) {
                           NSNumber *code =response[@"code"];
-                          NSDictionary *infoDic =response[@"info"];
-                          if ([code intValue] ==200 && infoDic) {
-                              // 服务器返回正确的业务逻辑处理
-                              // 1.判断自己的服务器的产生的订单参数返回是否正确
-                              PayReq *payReq =[ws isWpayParamsIsCorrect:infoDic];
-                              if (!payReq) {
+                          id infoId =response[@"info"];
+                          if ([infoId isKindOfClass:[NSString class]]) {// 支付宝支付
+                              NSString *infoStr =(NSString *)infoId;
+                              NSString *appScheme = @"WAPay";
+                              
+                              
+                              [[AlipaySDK defaultService] payOrder:infoStr fromScheme:appScheme callback:^(NSDictionary *resultDic) {
+                                  NSLog(@"reslut = %@",resultDic);
+                                  NSString *resultStatus = resultDic[@"resultStatus"];
+                                  [ws.delegate Wpay:ws andPayKind:WAPayKindAliPay andPayResult:[resultStatus intValue]];
+
+                              }];
+                              return ;
+
+
+                          }else if([infoId isKindOfClass:[NSDictionary class]]){ // 微信支付
+                              NSDictionary *infoDic =(NSDictionary *)infoId;
+
+                              if ([code intValue] ==200 && infoDic) {
+                                  // 服务器返回正确的业务逻辑处理
+                                  // 1.判断自己的服务器的产生的订单参数返回是否正确
+                                  PayReq *payReq =[ws isWpayParamsIsCorrect:infoDic];
+                                  if (!payReq) {
+                                      return ;
+                                  }
+                                  // 2.临时记录发送的参数
+                                  ws.paramsModel =model;
+                                  
+                                  [DisplayHelper displaySuccessAlert:@"请求微信支付订单成功!"];
+                                  
+                                  // 3.调用微信APIpayReq对应的参数
+                                  [WXApi sendReq:payReq];
                                   return ;
                               }
-                              // 2.临时记录发送的参数
-                              ws.paramsModel =model;
-                              
-                              [DisplayHelper displaySuccessAlert:@"请求微信支付订单成功!"];
-
-                              // 3.调用微信APIpayReq对应的参数
-//                              [WXApi sendReq:payReq];
-                              return ;
                           }
+                         
                       }
                       [DisplayHelper displayWarningAlert:@"请求微信支付订单服务器返回有误!"];
                       
@@ -105,8 +128,8 @@ static CMWechatAliPayManager *_WpayInstance = nil;
 -(void) onResp:(BaseResp*)resp {
     if([resp isKindOfClass:[PayResp class]]){
         //支付返回结果，实际支付结果需要去微信服务器端查询
-        if ([self.delegate respondsToSelector:@selector(Wpay:andPayResult:)]) {
-            [self.delegate Wpay:self andPayResult:resp.errCode];
+        if ([self.delegate respondsToSelector:@selector(Wpay:andPayKind:andPayResult:)]) {
+            [self.delegate Wpay:self andPayKind:WAPayKindWechat andPayResult:resp.errCode];
         }
 
        

@@ -18,7 +18,6 @@
     if (self =[super init]) {
         DDLog(@"返回数据为：responseData = %@ err =%@",responseData,err);
         if (err) {// 有错误的处理
-//            _isSucc =NO;
             _state =CMReponseCodeState_Faild;
             if ([responseData isKindOfClass:[NSDictionary class]]) {
                 NSNumber *code = [responseData objectForKey:@"code"];
@@ -33,26 +32,27 @@
                 NSNumber *codeNum =responseData[@"code"];
                 id data = [responseData valueForKey:@"info"];
                 if ([codeNum intValue] ==200) {
-//                    _isSucc =YES;
+                    //                    _isSucc =YES;
                     _state =CMReponseCodeState_Success;
                     _data =data;
-
+                    
                 }else if ([codeNum intValue] ==204) {
-                    _state =CMReponseCodeState_NoData;
-                    _data =data;
-                }else if ([codeNum intValue] ==205) {
                     _state =CMReponseCodeState_NoParams;
                     _data =data;
+                    
                 }
+                
                 
                 NSString *alertMsg =[responseData objectForKey:@"message"];
                 _alertMsg =alertMsg;
-
+                _code =[codeNum integerValue];
+                
+                
             }else {// 服务器返回数据问题
                 
-//                _isSucc = NO;
+                //                _isSucc = NO;
                 _state =CMReponseCodeState_Faild;
-
+                
                 _error = [NSError errorWithDomain:@"服务器返回数据结构异常"
                                              code:-100
                                          userInfo:nil];

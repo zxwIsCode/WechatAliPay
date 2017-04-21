@@ -22,4 +22,6 @@ UIKIT_EXTERN NSString *const kCart_PayGetPayr; // 支付方式的获取
 
 UIKIT_EXTERN NSString *const kCart_OrderPlaceOrder; // 商品的立即购买和购物车结算
 
+UIKIT_EXTERN NSString *const kSendTask_GetWechatPayParams;// 获得微信支付参数
+
 

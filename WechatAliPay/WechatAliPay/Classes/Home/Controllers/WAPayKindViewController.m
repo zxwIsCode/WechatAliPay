@@ -13,9 +13,7 @@
 
 #import "WAPayKindSelectedView.h"
 
-//#import "RSADataSigner.h"
-//#import <AlipaySDK/AlipaySDK.h>
-//#import "CMWechatPayManager.h"
+#import "CMWechatAliPayManager.h"
 
 @interface WAPayKindViewController ()
 
@@ -163,194 +161,111 @@
 
 #pragma mark - Action Methods
 
-//-(void)yesPayBtnClick:(UIButton *)button {
-//    
-//    CMHttpRequestModel *paramsModel =[[CMHttpRequestModel alloc]init];
-//    // 1. 传递参数的准备
-//    if (self.selectedTableView.payArr.count >self.selectedTableView.indexKind) {
-//        FAPayKindModel *model = self.selectedTableView.payArr[self.selectedTableView.indexKind];
-//        
-//        DDLog(@"您点击了%@平台的确认支付",model.payKindStr);
-//        [paramsModel.paramDic setValue:model.payid forKey:@"payid"];
-//
-//        
-//    }
-//
-//    
-//    // 2.订单处理的参数包装：
-//    paramsModel.appendUrl =kCart_OrderPlaceOrder;
-//    // 用户收货地址id
-//    FAAddressModel *addressModel =[FAUserTools UserAddress];
-//    if (!addressModel) {
-//        [DisplayHelper displayWarningAlert:@"您还没有收获地址哦！"];
-//        return ;
-//    }
-//    
-//    [paramsModel.paramDic setValue:self.addressModel.address_id forKey:@"addid"];
-//
-//    FAUserModel *userModel =[FAUserTools UserAccount];
-//    if (!userModel.user_id) {
-//        [DisplayHelper displayWarningAlert:@"请登录后再试下哦!"];
-//        return ;
-//    }
-//    [paramsModel.paramDic setValue:userModel.user_id forKey:@"userid"];
-//    
-//    // 是否使用积分（ 1是 2不是）
-//    [paramsModel.paramDic setValue:@(self.integralKind) forKey:@"isuseintl"];
-//    
-//    NSInteger totalIntegral = [userModel.integral integerValue];
-//
-//   
-//    if (self.shoppingKind ==FAShoppingKindMore) { // 购物车结算
-//        NSMutableArray *allOrderArr =[NSMutableArray array];
-//        for (FAShoppingSectionModel *sectionModel in self.allDataSource) {
-//            NSArray *cartArr =sectionModel.allItemArray;
-//            if (cartArr.count) {
-//                NSMutableDictionary *backOrderDic =[NSMutableDictionary dictionary];
-//                NSMutableArray *backCartArr =[NSMutableArray array];
-//                for (FACommotidyModel *commotidyModel in cartArr) {
-//                    NSMutableDictionary *itemDic =[NSMutableDictionary dictionary];
-//                    [itemDic setValue:commotidyModel.gctid forKey:@"id"];
-//                    
-//                    // 积分处理的问题
-//                    if (totalIntegral) { // 有积分
-//                        if (self.integralKind  && [commotidyModel.isintpay integerValue]) { // 可以使用积分
-//                            if (totalIntegral<commotidyModel.reallyIntegral) { // 剩余积分比较少
-//                                commotidyModel.reallyIntegral = totalIntegral;
-//                                totalIntegral =0;
-//                            }else { // 剩余积分比较多
-//                                totalIntegral =totalIntegral - commotidyModel.reallyIntegral;
-//                            }
-//                            [itemDic setValue:@(commotidyModel.reallyIntegral) forKey:@"jf"];
-//                        }else {
-//                            [itemDic setValue:@(0) forKey:@"jf"];
-//                        }
-//
-//                    }
-//                    
-//                    
-//                    [backCartArr addObject:itemDic];
-//                }
-//                [backOrderDic setValue:sectionModel.sellerid forKey:@"bid"];
-//                if (!sectionModel.shipWayModel.sellerMessage) {
-//                    [backOrderDic setValue:@"" forKey:@"msg"];
-//                }else {
-//                    [backOrderDic setValue:sectionModel.shipWayModel.sellerMessage forKey:@"msg"];
-//                }
-//                // 如果为空的话，就默认用第一种配送方式
-//                if (!sectionModel.shipWayModel.odyid) {
-//                    sectionModel.shipWayModel.odyid =@"1";
-//                }
-//                [backOrderDic setValue:sectionModel.shipWayModel.odyid forKey:@"way"];
-//                
-//                [backOrderDic setValue:backCartArr forKey:@"cart"];
-//                [allOrderArr addObject:backOrderDic];
-//            }
-//            
-//            
-//        }
-//        NSMutableDictionary *cartDic =[NSMutableDictionary dictionary];
-//        [cartDic setValue:allOrderArr forKey:@"cart"];
-//        NSString *jsonStr =[NSString dictionaryToJsonString:cartDic];
-//        
-//        [paramsModel.paramDic setValue:jsonStr forKey:@"single"];
-//
-//    }else if (self.shoppingKind ==FAShoppingKindSingle) { // 单个商品结算
-//        if (self.allDataSource.count) {
-//          
-//            FAShoppingSectionModel *sectionModel =self.allDataSource[0];
-//            if (sectionModel.allItemArray.count) {
-//                FACommotidyModel *itmeModel = sectionModel.allItemArray[0];
-//                NSMutableDictionary *orderDic =[NSMutableDictionary dictionary];
-//                [orderDic setValue:itmeModel.gid forKey:@"goodsid"];
-//                [orderDic setValue:itmeModel.bid forKey:@"bid"];
-//                [orderDic setValue:sectionModel.shipWayModel.sellerMessage forKey:@"msg"];
-//                [orderDic setValue:sectionModel.shipWayModel.odyid forKey:@"way"];
-//                
-//                if (totalIntegral) { // 有积分
-//                    if (self.integralKind  && [itmeModel.isintpay integerValue]) { // 可以使用积分
-//                        if (totalIntegral<[itmeModel.intlpay integerValue]) { // 剩余积分比较少
-//                            itmeModel.reallyIntegral = totalIntegral;
-//                            totalIntegral =0;
-//                        }else { // 剩余积分比较多
-//                            totalIntegral =totalIntegral - itmeModel.reallyIntegral;
-//                        }
-//                        [orderDic setValue:@(itmeModel.reallyIntegral) forKey:@"jf"];
-//                    }else {
-//                        [orderDic setValue:@(0) forKey:@"jf"];
-//                    }
-//                    
-//                }
-//                if (itmeModel.sc.count >itmeModel.goodsFormatCount) {
-//                    FAShopingItemFormatModel *itemFormatModel =itmeModel.sc[itmeModel.goodsFormatCount];
-//                    [orderDic setValue:itemFormatModel.gsid forKey:@"spid"];
-//                    
-//                }
-//                
-//                [orderDic setValue:@(itmeModel.gnum) forKey:@"gnum"];
-//
-//                NSMutableDictionary *allSingleDic =[NSMutableDictionary dictionary];
-//                
-//                [allSingleDic setValue:orderDic forKey:@"order"];
-//                NSString *jsonStr =[NSString dictionaryToJsonString:allSingleDic];
-//                
-//                [paramsModel.paramDic setValue:jsonStr forKey:@"single"];
-//
-//            }
-//            
-//            
-//        }
-//    }
-//    
-//    
-//    // 3.发送的网络请求
-//    
-//    if (self.selectedTableView.indexKind==0) {// 支付宝支付
-//        [self requestAliPayMoney:paramsModel];
-//    }else if (self.selectedTableView.indexKind==1) {// 微信支付
-//        // 充值直接调微信充值
-//        CMHttpRequestModel *model =[[CMHttpRequestModel alloc]init];
-//        model.appendUrl = kCart_OrderPlaceOrder;
-//        model.paramDic =paramsModel.paramDic;
-//        
-//        
-//        model.callback = ^(CMHttpResponseModel * result, NSError *error) {
-//            if (result.state ==CMReponseCodeState_Success) {
-//                
-//            }else {
-//                [CMHttpStateTools showHtttpStateView:result.state];
-//                
-//            }
-//            
-//        };
-//        
-//        [[CMWechatPayManager sharedWpayManager] sendWeChatRequestParam:model];
-//    }else {// 银联支付
-//        
-//    }
-//   
-//   
-//}
+-(void)yesPayBtnClick:(UIButton *)button {
+    
+    CMHttpRequestModel *paramsModel =[[CMHttpRequestModel alloc]init];
+    // 1. 传递参数的准备
+    if (self.selectedTableView.payArr.count >self.selectedTableView.indexKind) {
+        WAPayKindModel *model = self.selectedTableView.payArr[self.selectedTableView.indexKind];
+        
+        DDLog(@"您点击了%@平台的确认支付",model.payKindStr);
+        [paramsModel.paramDic setValue:model.payid forKey:@"payid"];
+    }
+
+    
+    // 2.订单处理的参数包装：
+    paramsModel.appendUrl =kCart_OrderPlaceOrder;
+    // 用户收货地址id
+    [paramsModel.paramDic setValue:@(4) forKey:@"addid"];
+
+    [paramsModel.paramDic setValue:@(1) forKey:@"userid"];
+    
+    // 是否使用积分（ 1是 2不是）
+    [paramsModel.paramDic setValue:@(2) forKey:@"isuseintl"];
+        
+    NSMutableDictionary *orderDic =[NSMutableDictionary dictionary];
+    [orderDic setValue:@(3) forKey:@"goodsid"];
+    [orderDic setValue:@(4) forKey:@"bid"];
+    [orderDic setValue:@"测试" forKey:@"msg"];
+    [orderDic setValue:@(1) forKey:@"way"];
+    
+    [orderDic setValue:@(0) forKey:@"jf"];
+    [orderDic setValue:@(8) forKey:@"spid"];
+    
+    [orderDic setValue:@(1) forKey:@"gnum"];
+    
+    NSMutableDictionary *allSingleDic =[NSMutableDictionary dictionary];
+    
+    [allSingleDic setValue:orderDic forKey:@"order"];
+    NSString *jsonStr =[NSString dictionaryToJsonString:allSingleDic];
+    
+    [paramsModel.paramDic setValue:jsonStr forKey:@"single"];
+    
+    // 3.发送的网络请求
+    
+    if (self.selectedTableView.indexKind==0) {// 支付宝支付
+        [[CMWechatAliPayManager sharedWpayManager] sendWeChatAliPayRequestParam:paramsModel];
+    }else if (self.selectedTableView.indexKind==1) {// 微信支付
+        // 充值直接调微信充值
+        CMHttpRequestModel *model =[[CMHttpRequestModel alloc]init];
+        model.localHost = @"http://php.adwtp.com/index.php/";
+        model.appendUrl = kSendTask_GetWechatPayParams;
+        
+        [model.paramDic setValue:@(1) forKey:@"userid"];
+        [model.paramDic setValue:@(50) forKey:@"beanum"];
+
+        
+        
+        model.callback = ^(CMHttpResponseModel * result, NSError *error) {
+            if (result.state ==CMReponseCodeState_Success) {
+                
+            }else {
+                [CMHttpStateTools showHtttpStateView:result.state];
+                
+            }
+            
+        };
+        
+        [[CMWechatAliPayManager sharedWpayManager] sendWeChatAliPayRequestParam:model];
+    }else {// 银联支付
+        
+    }
+   
+   
+}
 
 
-//#pragma mark - CMWpaySearchResultDelegate
-//// 微信支付完成后告诉客户端
-//-(void)Wpay:(CMWechatPayManager *)manager andPayResult:(int)code {
-//    
-//    switch (code) {
-//        case WXSuccess:
-//            
-//            // 1. 包装对应查询参数
-//            [DisplayHelper displaySuccessAlert:@"微信支付成功!"];
-//            // 2. 发送查询的是否成功的请求
-//            
-//            break;
-//            
-//        default:
-//            
-//            break;
-//    }
-//}
+#pragma mark - CMWpaySearchResultDelegate
+-(void)Wpay:(CMWechatAliPayManager *)manager andPayKind:(WAPayKind)payKind andPayResult:(int)code {
+    DDLog(@"走到回调的地方了");
+    if (payKind ==WAPayKindWechat) {
+        switch (code) {
+            case WXSuccess:
+                
+                // 1. 包装对应查询参数
+                [DisplayHelper displaySuccessAlert:@"微信支付成功!"];
+                // 2. 发送查询的是否成功的请求
+                break;
+                
+            default:
+                
+                break;
+        }
+    }else {
+        switch (code) {
+            case 9000:// 成功
+                [DisplayHelper displaySuccessAlert:@"支付宝支付成功!"];
+
+                break;
+            case 6001:// 取消
+                break;
+            default:
+                break;
+        }
+    }
+    
+   
+}
 
 -(void)requestAliPayMoney:(CMHttpRequestModel *)paramsModel {
     paramsModel.callback =^(CMHttpResponseModel *result, NSError *error) {
