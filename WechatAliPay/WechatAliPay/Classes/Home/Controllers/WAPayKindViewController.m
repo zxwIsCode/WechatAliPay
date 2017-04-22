@@ -167,7 +167,7 @@
 #pragma mark - CMWpaySearchResultDelegate
 -(void)Wpay:(CMWechatAliPayManager *)manager andPayKind:(WAPayKind)payKind andPayResult:(int)code {
     DDLog(@"走到回调的地方了");
-    if (payKind ==WAPayKindWechat) {
+    if (payKind ==WAPayKindWechat) { // 微信
         switch (code) {
             case WXSuccess:
                 
@@ -180,7 +180,7 @@
                 
                 break;
         }
-    }else {
+    }else { // 支付宝
         switch (code) {
             case 9000:// 成功
                 [DisplayHelper displaySuccessAlert:@"支付宝支付成功!"];

@@ -64,6 +64,7 @@ static CMWechatAliPayManager *_WpayInstance = nil;
                               [[AlipaySDK defaultService] payOrder:infoStr fromScheme:appScheme callback:^(NSDictionary *resultDic) {
                                   NSLog(@"reslut = %@",resultDic);
                                   NSString *resultStatus = resultDic[@"resultStatus"];
+                                  
                                   [ws.delegate Wpay:ws andPayKind:WAPayKindAliPay andPayResult:[resultStatus intValue]];
 
                               }];

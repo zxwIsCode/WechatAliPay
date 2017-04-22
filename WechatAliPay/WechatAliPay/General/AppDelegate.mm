@@ -58,7 +58,8 @@
     return YES;
 }
 
-#pragma mark -
+#pragma mark - UIApplicationDelegate
+
 - (BOOL)application:(UIApplication *)application
       handleOpenURL:(NSURL *)url
 {
